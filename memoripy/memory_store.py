@@ -95,6 +95,7 @@ class MemoryStore:
         for idx in range(len(self.short_term_memory) - exclude_last_n):
             # Cosine similarity
             similarity = cosine_similarity(query_embedding_norm, normalized_embeddings[idx])[0][0] * 100
+            print(f"Interaction {idx} - Basic Similarity score: {similarity:.2f}%")
             # Time-based decay
             time_diff = current_time - self.timestamps[idx]
             decay_factor = self.short_term_memory[idx].get('decay_factor', 1.0) * np.exp(-decay_rate * time_diff)

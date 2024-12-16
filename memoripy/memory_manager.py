@@ -1,20 +1,17 @@
+from loguru import logger
 import numpy as np
 import time
 import uuid
 import os
 import torch
 from pydantic import BaseModel, Field
-from .in_memory_storage import InMemoryStorage
-from langchain_core.messages import HumanMessage, SystemMessage
-from .memory_store import MemoryStore
-from .model import ChatModel, EmbeddingModel
+from in_memory_storage import InMemoryStorage
+from memory_store import MemoryStore
+from model import ChatModel, HumanMessage, SystemMessage
 from sentence_transformers import SentenceTransformer
 
 os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 os.environ['OMP_NUM_THREADS'] = '1'
-
-class ConceptExtractionResponse(BaseModel):
-    concepts: list[str] = Field(description="List of key concepts extracted from the text.")
 
 class MemoryManager:
     """
@@ -177,6 +174,8 @@ class MemoryManager:
             SystemMessage(content="You're a helpful assistant."),
             HumanMessage(content=f"{context}\nCurrent prompt: {prompt}")
         ]
+
+        logger.debug(f"Messages: {messages}")
         
         response = self.chat_model.invoke(messages)
         return response

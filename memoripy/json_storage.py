@@ -3,7 +3,7 @@
 import json
 import os
 
-from .storage import BaseStorage
+from storage import BaseStorage
 
 class JSONStorage(BaseStorage):
     def __init__(self, file_path="interaction_history.json"):

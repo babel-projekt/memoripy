@@ -1,6 +1,6 @@
 # in_memory_storage.py
 
-from .storage import BaseStorage
+from storage import BaseStorage
 
 class InMemoryStorage(BaseStorage):
     def __init__(self):
