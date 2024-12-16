@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
+from typing import Literal
 import numpy as np
+from pydantic import BaseModel, Field
 
 
 class EmbeddingModel(ABC):
@@ -33,3 +35,18 @@ class ChatModel(ABC):
         """
         pass
 
+class BaseMessage(BaseModel):
+    content: str
+    role: str
+
+class HumanMessage(BaseMessage):
+    role: Literal["user"] = "user"
+
+class SystemMessage(BaseMessage):
+    role: Literal["system"] = "system"
+
+class AssistantMessage(BaseMessage):
+    role: Literal["assistant"] = "assistant"
+
+class ConceptExtractionResponse(BaseModel):
+    concepts: list[str] = Field(description="List of key concepts extracted from the text.")

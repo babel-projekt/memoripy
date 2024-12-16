@@ -6,6 +6,7 @@
 /man
 /share
 /ssl
+/eg
 .env
 **/__pycache__/
 __pycache__
